@@ -1,9 +1,9 @@
 module.exports = (app) => {
-  // Your code here
+  // Your code here 
   app.log('Yay! The app was loaded!')
 
   // example of probot responding 'Hello World' to a new issue being opened
-  app.on(['pull_request.opened', 'pull_request.reopened'], async context => {
+  app.on(['pull_request.opened', 'pull_request.reopened', 'pull_request.edited'], async context => {
     
     const config = await context.config("label.yml")
     
@@ -27,7 +27,7 @@ module.exports = (app) => {
       }
     }
     
-    return context.github.issues.addLabels(context.issue({ labels: labelsToAdd }))
+    return context.octokit.issues.addLabels(context.issue({ labels: labelsToAdd }))
 
   })
 }
